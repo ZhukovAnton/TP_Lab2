@@ -1,0 +1,52 @@
+server:
+  port: 8060
+  servlet:
+    context-path: /
+  error:
+    whitelabel:
+      enabled: true
+
+spring:
+  application:
+    name: AssetAccountingAPI
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  jpa:
+    database: POSTGRESQL
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      use_sql_comments: true
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+        temp:
+          use_jdbc_metadata_defaults: false
+  messages:
+    basename: messages
+    encoding: UTF-8
+    fallback-to-system-locale: true
+    use-code-as-default-message: false
+    cache-duration:
+
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/postgres
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: 12345
+
+logging:
+  level:
+    root: info
+    com.stanum: debug
+    io:
+      swagger:
+        models:
+          parameters:
+            AbstractSerializableParameter: error
