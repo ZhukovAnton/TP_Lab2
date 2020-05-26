@@ -1,5 +1,6 @@
 package com.lzp.aas.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -39,5 +40,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private UserRole userRole;
+
+    @JsonIgnore
+    @Column(name = "password_digest")
+    private String passwordDigest;
 
 }
