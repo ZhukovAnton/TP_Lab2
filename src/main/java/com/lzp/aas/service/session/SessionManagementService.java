@@ -13,6 +13,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.Comparator;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +34,9 @@ public class SessionManagementService {
             throw new AppException(HttpAppError.EXTERNAL_API_ERROR, exception.getMessage());
         }
         String token = encoder.encodeToString(random.generateSeed(16));
+        token = token.replace("+", "Q");
+        token = token.replace("/", "r");
+        token = token.replace("=", "t");
 
         Session session = new Session();
         session.setUser(user);
@@ -39,5 +44,16 @@ public class SessionManagementService {
         session.setToken(token);
         session.setCreatedAt(LocalDateTime.now());
         return sessionRepository.save(session);
+    }
+
+    public void updateUsersSession(User user) {
+        Optional<Session> usersSession = sessionRepository.findByUser(user)
+                .stream().max(Comparator.comparing(Session::getCreatedAt));
+        if (usersSession.isPresent()) {
+            Session session = usersSession.get();
+            session.setUser(user);
+            session.setUserRole(user.getUserRole());
+            sessionRepository.save(session);
+        }
     }
 }

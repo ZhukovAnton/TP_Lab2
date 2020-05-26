@@ -2,11 +2,12 @@ package com.lzp.aas.utils;
 
 import com.lzp.aas.config.Constants;
 import com.lzp.aas.exception.AppError;
+import com.lzp.aas.exception.AppException;
+import com.lzp.aas.exception.HttpAppError;
 import com.lzp.aas.model.User;
+import com.lzp.aas.model.enums.UserRole;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
-
-import java.util.Locale;
 
 public class RequestUtil {
 
@@ -48,6 +49,10 @@ public class RequestUtil {
 
     public static void setError(AppError e) {
         setProp("code", e);
+    }
+
+    public static void checkAdminsRules() {
+        if (getUser().getUserRole().equals(UserRole.admin)) throw new AppException(HttpAppError.ACCESS_DENIED);
     }
 
 }
