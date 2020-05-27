@@ -32,6 +32,15 @@ public class AssetController {
         return new ResponseEntity<>(assetRequestService.indexAssets(userId, assetStatus), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "index assets. can be filtered with params",
+            authorizations = {@Authorization(Constants.JWT_AUTH)})
+    @GetMapping("/assets/{userId}")
+    public ResponseEntity<List<Asset>> indexAssetsByUser(
+            @RequestHeader("authorization") String authorization,
+            @PathVariable("userId") Long userId) {
+        return new ResponseEntity<>(assetRequestService.indexAssetsByUser(userId), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "create asset",
             authorizations = {@Authorization(Constants.JWT_AUTH)})
     @PostMapping("/assets")

@@ -23,6 +23,11 @@ public class AssetRequestService {
         return assetRepository.indexFilteredByParams(userId, assetStatus);
     }
 
+    public List<Asset> indexAssetsByUser(Long userId) {
+        RequestUtil.checkRightAccess(userId);
+        return assetRepository.indexFilteredByParams(userId, null);
+    }
+
     public Asset createAsset(AssetCreationForm assetCreationForm) {
         RequestUtil.checkAdminsRules();
         return assetManagementService.createAsset(assetCreationForm);
