@@ -45,7 +45,7 @@ public class AssetController {
     @ApiOperation(value = "index assets. can be filtered with params",
             authorizations = {@Authorization(Constants.JWT_AUTH)})
     @PatchMapping("/assets/{id}/change_status")
-    public ResponseEntity<Void> assignAsset(
+    public ResponseEntity<Void> changeAssetStatus(
             @RequestHeader("authorization") String authorization,
             @PathVariable("id") Long assetId,
             @RequestBody AssetChangeStatusForm changeStatusForm) {

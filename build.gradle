@@ -41,7 +41,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.10.2'
     implementation 'com.mashape.unirest:unirest-java:1.4.9'
-    implementation 'io.micrometer:micrometer-registry-prometheus'
     compile 'com.eatthepath:pushy:0.13.11'
     compile 'org.dmfs:lib-recur:0.9.2'
 
