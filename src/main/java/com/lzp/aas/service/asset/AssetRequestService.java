@@ -1,5 +1,6 @@
 package com.lzp.aas.service.asset;
 
+import com.lzp.aas.controller.form.AssetCreationForm;
 import com.lzp.aas.model.Asset;
 import com.lzp.aas.model.enums.AssetStatus;
 import com.lzp.aas.repository.AssetRepository;
@@ -20,6 +21,11 @@ public class AssetRequestService {
     public List<Asset> indexAssets(Long userId, AssetStatus assetStatus) {
         RequestUtil.checkAdminsRules();
         return assetRepository.indexFilteredByParams(userId, assetStatus);
+    }
+
+    public Asset createAsset(AssetCreationForm assetCreationForm) {
+        RequestUtil.checkAdminsRules();
+        return assetManagementService.createAsset(assetCreationForm);
     }
 
     public void assignAssetToUser(Long assetId, Long userId) {
