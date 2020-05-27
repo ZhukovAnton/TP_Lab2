@@ -3,6 +3,7 @@ package com.lzp.aas.controller;
 import com.lzp.aas.config.Constants;
 import com.lzp.aas.controller.form.AssetAssignUserForm;
 import com.lzp.aas.controller.form.AssetChangeStatusForm;
+import com.lzp.aas.controller.form.AssetCreationForm;
 import com.lzp.aas.model.Asset;
 import com.lzp.aas.model.enums.AssetStatus;
 import com.lzp.aas.service.asset.AssetRequestService;
@@ -31,7 +32,17 @@ public class AssetController {
         return new ResponseEntity<>(assetRequestService.indexAssets(userId, assetStatus), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "index assets. can be filtered with params",
+    @ApiOperation(value = "create asset",
+            authorizations = {@Authorization(Constants.JWT_AUTH)})
+    @PostMapping("/assets")
+    public ResponseEntity<Asset> createAsset(
+            @RequestHeader("authorization") String authorization,
+            @RequestBody AssetCreationForm assetCreationForm) {
+        Asset asset = assetRequestService.createAsset(assetCreationForm);
+        return new ResponseEntity<>(asset, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "assign asset",
             authorizations = {@Authorization(Constants.JWT_AUTH)})
     @PatchMapping("/assets/{id}/assign_to_user")
     public ResponseEntity<Void> assignAsset(
@@ -42,7 +53,7 @@ public class AssetController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @ApiOperation(value = "index assets. can be filtered with params",
+    @ApiOperation(value = "change asset status",
             authorizations = {@Authorization(Constants.JWT_AUTH)})
     @PatchMapping("/assets/{id}/change_status")
     public ResponseEntity<Void> changeAssetStatus(
