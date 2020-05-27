@@ -24,7 +24,8 @@ public enum HttpAppError implements AppError {
     INVALID_EMAIL_OR_PASSWORD(HttpStatus.BAD_REQUEST),
     INVALID_PAYLOAD(HttpStatus.UNPROCESSABLE_ENTITY),
     PAYMENT_REQUIRED(HttpStatus.PAYMENT_REQUIRED),
-    NOT_IMPLEMENTED_YET(HttpStatus.NOT_IMPLEMENTED);
+    NOT_IMPLEMENTED_YET(HttpStatus.NOT_IMPLEMENTED),
+    ALREADY_ASSIGNED(HttpStatus.BAD_REQUEST);
 
     private final HttpStatus status;
 

@@ -6,10 +6,8 @@ import com.lzp.aas.exception.AppException;
 import com.lzp.aas.exception.HttpAppError;
 import com.lzp.aas.model.Session;
 import com.lzp.aas.model.User;
-import com.lzp.aas.model.enums.UserRole;
 import com.lzp.aas.repository.UserRepository;
 import com.lzp.aas.service.session.SessionManagementService;
-import com.lzp.aas.utils.RequestUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -41,15 +39,6 @@ public class UserRequestService {
     public User register(UserRegisterForm userRegisterForm) {
         if (!userRegisterForm.getPassword().equals(userRegisterForm.getPasswordConfirmation())) throw new AppException(HttpAppError.BAD_REQUEST);
         return userManagementService.createUser(userRegisterForm);
-    }
-
-    public void changeRoleFor(Long forWhoChangingRole, UserRole newUserRole) {
-        RequestUtil.checkAdminsRules();
-        Optional<User> changeRoleForUserOptional = userRepository.findById(forWhoChangingRole);
-        if (changeRoleForUserOptional.isEmpty()) throw new AppException(HttpAppError.NOT_FOUND);
-        else {
-            userManagementService.updateUserRole(changeRoleForUserOptional.get(), newUserRole);
-        }
     }
 
 }
