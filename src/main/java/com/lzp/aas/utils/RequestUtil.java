@@ -52,7 +52,11 @@ public class RequestUtil {
     }
 
     public static void checkAdminsRules() {
-        if (getUser().getUserRole().equals(UserRole.admin)) throw new AppException(HttpAppError.ACCESS_DENIED);
+        if (!getUser().getUserRole().equals(UserRole.admin)) throw new AppException(HttpAppError.ACCESS_DENIED);
+    }
+
+    public static void checkRightAccess(Long userId) {
+        if (!getUser().getId().equals(userId)) throw new AppException(HttpAppError.ACCESS_DENIED);
     }
 
 }
